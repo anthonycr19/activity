@@ -24,15 +24,23 @@ class IdiomController
 
     }
 
-    function listIdiom() {
-        $myposqgresql = $this->initConnectiondb();
-        $serieList = pg_query($myposqgresql, "SELECT * FROM idiom");
+    function listIdiom(){
 
-        while ($obj = pg_fetch_object($serieList)) {
-            echo $obj->id." - ".$obj->iso_code."<br />";
-//            echo "id_idiom: $row[0]  iso_code: $row[1]";
-//            echo "<br />\n";
+
+        $myposqgresql = $this->initConnectiondb();
+        $idiomList = pg_query($myposqgresql, "SELECT * FROM idiom");
+
+        $idiomObjectArray = [];
+
+        /*while ($obj = pg_fetch_object($serieList)) {
+            echo $obj->id_idiom." - ".$obj->iso_code."<br />";
+        }*/
+
+        foreach ($idiomList as $idiomItem ){
+            $idiomObject = new Idiom($idiomItem['id_idiom'], $idiomItem['iso_code']);
+            array_push($idiomObjectArray, $idiomObject);
         }
 
+        return $idiomObjectArray;
     }
 }

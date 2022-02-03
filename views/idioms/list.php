@@ -1,11 +1,12 @@
 <?php
-    require_once('../controllers/IdiomController.php')
+    require_once('../../controllers/IdiomController.php')
 
 ?>
 
 <div>
     <?php
-    $listIdioms = listIdiom();
+    $list = new IdiomController;
+    $listIdioms = $list->listIdiom();
     if(count($listIdioms) > 0){
         ?>
         <table>
