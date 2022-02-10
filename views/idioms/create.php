@@ -42,7 +42,7 @@
 ?>
     <div>
         <div>
-            Plataforma creada correctamente. <br><a href="list.php">Volver al listado de plataformas</a>
+            El Idioma ha sido creado correctamente. <br><a href="list.php">Volver al listado de plataformas</a>
         </div>
     </div>
 <?php
@@ -50,7 +50,7 @@
 ?>
     <div>
         <div>
-            La plataforma no se ha creado correctamente <br> <a href="create.php">Volver a intentarlo</a>
+            El idioma no se ha creado correctamente <br> <a href="create.php">Volver a intentarlo</a>
         </div>
     </div>
 
