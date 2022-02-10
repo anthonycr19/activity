@@ -6,7 +6,6 @@ class IdiomController
 {
     function initConnectiondb(){
 
-
         $db_host = 'localhost';
         $db_port = '5432';
         $db_name = 'db_platform';
@@ -21,11 +20,9 @@ class IdiomController
         }else{
             echo "No se conecta a la BD";
         }
-
     }
 
     function listIdiom(){
-
 
         $myposqgresql = $this->initConnectiondb();
         $idiomList = pg_query($myposqgresql, "SELECT * FROM idiom");
@@ -36,11 +33,63 @@ class IdiomController
             echo $obj->id_idiom." - ".$obj->iso_code."<br />";
         }*/
 
-        foreach ($idiomList as $idiomItem ){
-            $idiomObject = new Idiom($idiomItem['id_idiom'], $idiomItem['iso_code']);
+        while ($obj = pg_fetch_object($idiomList)){
+            $idiomObject = new Idiom($obj->id_idiom, $obj->iso_code,$obj->name_idiom);
             array_push($idiomObjectArray, $idiomObject);
+
         }
 
         return $idiomObjectArray;
+    }
+
+    function storeIdiom($isoIdiom, $nameIdiom){
+        $myposqgresql = $this->initConnectiondb();
+
+        $idiomCreated = false;
+
+        if($resultadoInsert = pg_query($myposqgresql, "INSERT INTO idiom (iso_code, name_idiom) VALUES ('$isoIdiom', '$nameIdiom')")){
+            $idiomCreated = true;
+        }
+
+        return $idiomCreated;
+    }
+
+
+    function getIdiomData($idIdiom){
+        $myposqgresql = $this->initConnectiondb();
+
+        $idiomData = pg_query($myposqgresql, "SELECT * FROM idiom WHERE id_idiom='$idIdiom'");
+        $idiomObject = null;
+
+        while ($obj = pg_fetch_object($idiomData)){
+            $idiomObject = new Idiom($obj->id_idiom, $obj->iso_code, $obj->name_idiom);
+            break;
+        }
+        return $idiomObject;
+    }
+
+    function updateIdiom($idiomIid, $idiomIsoCode, $idiomName){
+
+        $myposqgresql = $this->initConnectiondb();
+        $idiomEdited = false;
+
+        if($resultadoUpdate = pg_query($myposqgresql, "UPDATE idiom set iso_code ='$idiomIsoCode', name_idiom = '$idiomName' where id_idiom = $idiomIid")){
+            $idiomEdited = true;
+        }
+
+        return $idiomEdited;
+    }
+
+    function deleteIdiom($idiomId){
+        $myposqgresql = $this->initConnectiondb();
+
+        $idiomDeleted = false;
+
+        if($resultado = pg_query($myposqgresql, "DELETE FROM idiom where id_idiom = '$idiomId'")){
+            $idiomDeleted = true;
+        }
+
+        return $idiomDeleted;
+
     }
 }

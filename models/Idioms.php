@@ -4,15 +4,18 @@ class Idiom
 {
     private $id_idiom;
     private $iso_code;
+    private $name_idiom;
 
     /**
      * @param $id_idiom
      * @param $iso_code
+     * @param $name_idiom
      */
-    public function __construct($id_idiom, $iso_code)
+    public function __construct($id_idiom, $iso_code, $name_idiom)
     {
         $this->id_idiom = $id_idiom;
         $this->iso_code = $iso_code;
+        $this->name_idiom = $name_idiom;
     }
 
     /**
@@ -45,6 +48,22 @@ class Idiom
     public function setIsoCode($iso_code)
     {
         $this->iso_code = $iso_code;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNameIdiom()
+    {
+        return $this->name_idiom;
+    }
+
+    /**
+     * @param mixed $name_idiom
+     */
+    public function setNameIdiom($name_idiom)
+    {
+        $this->name_idiom = $name_idiom;
     }
 
 
